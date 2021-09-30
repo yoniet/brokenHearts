@@ -1,0 +1,136 @@
+@startuml hearts 
+
+enum Suit {
+    CLUBS 
+    DIAMONDS 
+    SPADES 
+    HEARTS 
+}
+
+enum Value {
+    TWO
+    THREE
+    FOUR
+    FIVE
+    SIX
+    SEVEN
+    EIGHT 
+    NINE 
+    TEN
+    JACK
+    QUEEN
+    KING
+    ACE
+}
+
+class Card implements Comparable {
+    -Suit suit
+    -Value value
+    +Card(Suit suit, Value value)
+    +Suit getSuit()
+    +Value getValue()
+    +String printCard()
+    +int compareTo(Card other)
+    +boolean equals(Card other)
+}
+
+Suit --> Card /'composition '/ 
+Value --> Card /'composition '/ 
+
+class Deck {
+    'check if we have already initi the deck or not'
+    -initDeck : boolean
+    -ArrayList<Card> allCards 
+    -ArrayList<Card< useCards 
+    +Deck()
+    +void initDeck()
+    +void shuffleDeck()
+    +drawTop()
+    'check we have 52 unique cards'
+    +boolean checkDeck()
+    'Retun a card to deck'
+    +void restock()
+    'return the number of cards'
+    +int size()
+    +chechDeck
+}
+
+abstract class Player {
+    -String name
+    -int score 
+    +Player(String id)
+    +String getName()
+    +void addScore()
+    +int getScore()
+    +void clearScore()
+}
+
+enum Seats {
+    North 
+    East 
+    South 
+    West 
+}
+
+class Hand extends Player {
+    -Scanner sc
+    -ArrayList<Card> hand
+    +Hand(String name)
+    +clearHand()
+    +takeCard()
+    +drawCard()
+    +checkSuit()
+    +checkValue()
+    +hasSuit()
+    +hasValue()
+    +PrintHand()
+    +performAction()
+}
+
+class Game {
+    -ArrayList<Player> playerOrder
+    -int firstPlayer
+    -Deck cardsPlayed
+    'Cards currently played on the table'
+    +Game(Deck deck, Player pla1, Player pla2, Player pla3, Player pla4)
+    +playGame()
+    +void printRound(int firstPlayer)
+    +boolean checkRound(Card playedCard)
+}
+
+Deck --> RuleHearts
+Card -right-> Deck
+
+class Hearts  {
+    "this is main program"
+    Trick brokenHearts
+}
+
+
+
+interface RuleGame {
+    
+}
+
+class RuleHearts implements RuleGame {
+    -Deck cardsPlayed
+    -ArrayList<Hand> playerOrder
+    -ArrayList<Scores> scores
+    -Round currentRound
+    -boolean twoClubsPlayed
+    -boolean hasHeartsBroken
+    -int firstPlayer
+    +RuleHearts(ArrayList<Hand> playerOrder, Deck cardsPlayed)
+    +sortHands()
+    +firstPlayer()
+    +hasAllSameSuit()
+    +getFirstSuit()
+    +initGame()
+    
+
+}
+
+
+Hand --> RuleHearts
+Game --> RuleHearts
+@enduml
